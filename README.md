@@ -1,4 +1,9 @@
 objc-singleplatform
 ===================
 
-iOS SDK for using the SinglePlatform API
+Objective-C SDK for the SinglePlatform API
+
+
+Usage:
+===================
+
