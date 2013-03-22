@@ -8,6 +8,17 @@
 
 #import "SinglePlatform.h"
 
+NSString * const kSinglePlatformBaseURL = @"http://api.singleplatform.co";
+
 @implementation SinglePlatform
+
+-(void)setAPIKey:(NSString *)apiKey
+{
+    NSParameterAssert(apiKey);
+    [self clearAuthorizationHeader];
+    [self setAuthorizationHeaderWithUsername:@"api" password:apiKey];
+}
+
+
 
 @end

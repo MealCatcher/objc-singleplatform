@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37C1FD73B6C846F9B9F0CB1D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A2972BC36241D6A68AEE1B /* libPods.a */; };
 		E723C40016FD0C9200F72A28 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E723C3FF16FD0C9200F72A28 /* UIKit.framework */; };
 		E723C40216FD0C9200F72A28 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E723C40116FD0C9200F72A28 /* Foundation.framework */; };
 		E723C40416FD0C9200F72A28 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E723C40316FD0C9200F72A28 /* CoreGraphics.framework */; };
@@ -18,9 +19,12 @@
 		E723C41616FD0C9200F72A28 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E723C41516FD0C9200F72A28 /* Default-568h@2x.png */; };
 		E723C41916FD0C9200F72A28 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E723C41816FD0C9200F72A28 /* ViewController.m */; };
 		E723C41C16FD0C9200F72A28 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E723C41A16FD0C9200F72A28 /* ViewController.xib */; };
+		E78B807516FD0E7D00DB3A3B /* SinglePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = E78B807416FD0E7D00DB3A3B /* SinglePlatform.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		83A2972BC36241D6A68AEE1B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		971A19995D1F4C688A51825B /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		E723C3FC16FD0C9200F72A28 /* singleplatformsdk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = singleplatformsdk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E723C3FF16FD0C9200F72A28 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E723C40116FD0C9200F72A28 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -37,6 +41,8 @@
 		E723C41716FD0C9200F72A28 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		E723C41816FD0C9200F72A28 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E723C41B16FD0C9200F72A28 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		E78B807316FD0E7D00DB3A3B /* SinglePlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglePlatform.h; sourceTree = "<group>"; };
+		E78B807416FD0E7D00DB3A3B /* SinglePlatform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePlatform.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +53,7 @@
 				E723C40016FD0C9200F72A28 /* UIKit.framework in Frameworks */,
 				E723C40216FD0C9200F72A28 /* Foundation.framework in Frameworks */,
 				E723C40416FD0C9200F72A28 /* CoreGraphics.framework in Frameworks */,
+				37C1FD73B6C846F9B9F0CB1D /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,9 +63,11 @@
 		E723C3F316FD0C9200F72A28 = {
 			isa = PBXGroup;
 			children = (
+				E78B807216FD0E7D00DB3A3B /* sdk */,
 				E723C40516FD0C9200F72A28 /* singleplatformsdk */,
 				E723C3FE16FD0C9200F72A28 /* Frameworks */,
 				E723C3FD16FD0C9200F72A28 /* Products */,
+				971A19995D1F4C688A51825B /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -76,6 +85,7 @@
 				E723C3FF16FD0C9200F72A28 /* UIKit.framework */,
 				E723C40116FD0C9200F72A28 /* Foundation.framework */,
 				E723C40316FD0C9200F72A28 /* CoreGraphics.framework */,
+				83A2972BC36241D6A68AEE1B /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -107,6 +117,16 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		E78B807216FD0E7D00DB3A3B /* sdk */ = {
+			isa = PBXGroup;
+			children = (
+				E78B807316FD0E7D00DB3A3B /* SinglePlatform.h */,
+				E78B807416FD0E7D00DB3A3B /* SinglePlatform.m */,
+			);
+			name = sdk;
+			path = singleplatformsdk/sdk;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -117,6 +137,7 @@
 				E723C3F816FD0C9200F72A28 /* Sources */,
 				E723C3F916FD0C9200F72A28 /* Frameworks */,
 				E723C3FA16FD0C9200F72A28 /* Resources */,
+				9C47C268707747039EC97351 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -168,6 +189,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9C47C268707747039EC97351 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E723C3F816FD0C9200F72A28 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -176,6 +214,7 @@
 				E723C40C16FD0C9200F72A28 /* main.m in Sources */,
 				E723C41016FD0C9200F72A28 /* AppDelegate.m in Sources */,
 				E723C41916FD0C9200F72A28 /* ViewController.m in Sources */,
+				E78B807516FD0E7D00DB3A3B /* SinglePlatform.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +298,7 @@
 		};
 		E723C42016FD0C9200F72A28 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 971A19995D1F4C688A51825B /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "singleplatformsdk/singleplatformsdk-Prefix.pch";
@@ -270,6 +310,7 @@
 		};
 		E723C42116FD0C9200F72A28 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 971A19995D1F4C688A51825B /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "singleplatformsdk/singleplatformsdk-Prefix.pch";
@@ -298,6 +339,7 @@
 				E723C42116FD0C9200F72A28 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
