@@ -15,6 +15,10 @@ NSString * const kSinglePlatformBaseURL = @"http://api.singleplatform.co";
 
 @implementation SinglePlatform
 
+@synthesize clientID;
+@synthesize secret;
+@synthesize apiKey;
+
 +(instancetype)client
 {
     static dispatch_once_t onceToken;
@@ -24,7 +28,6 @@ NSString * const kSinglePlatformBaseURL = @"http://api.singleplatform.co";
     });
     return client;
 }
-
 
 -(id)initWithBaseURL:(NSURL *)url
 {
@@ -38,15 +41,15 @@ NSString * const kSinglePlatformBaseURL = @"http://api.singleplatform.co";
     return self;
 }
 
--(void)setAPIKey:(NSString *)apiKey
+/*-(void)setClientID:(NSString *)clientID
 {
-    NSParameterAssert(apiKey);
+    NSParameterAssert(clientID);
     [self clearAuthorizationHeader];
-    [self setAuthorizationHeaderWithUsername:@"api" password:apiKey];
-}
+    [self setAuthorizationHeaderWithUsername:@"api" password:clientID];
+}*/
 
-/* This method signs the a URL using HMAC-SHA1 and returns the signature */
--(NSString *)signURL:(NSMutableString *)url signingKey:(NSMutableString*)key
+/* This method signs the URL using HMAC-SHA1 and returns the signature */
+-(NSString *)signURL:(NSMutableString *)url signingKey:(NSMutableString *)key
 {
     [key replaceOccurrencesOfString:@"-" withString:@"+" options:NSLiteralSearch range:NSMakeRange(0, [key length])];
     [key replaceOccurrencesOfString:@"_" withString:@"/" options:NSLiteralSearch range:NSMakeRange(0, [key length])];
@@ -87,6 +90,11 @@ NSString * const kSinglePlatformBaseURL = @"http://api.singleplatform.co";
     [signature replaceOccurrencesOfString:@"=" withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [signature length])];
     
     return signature;
+}
+
+-(void)getLocations
+{
+    
 }
 
 

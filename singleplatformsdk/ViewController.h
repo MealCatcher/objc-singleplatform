@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SinglePlatform.h"
 
 @interface ViewController : UIViewController
 

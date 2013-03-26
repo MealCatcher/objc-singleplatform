@@ -17,9 +17,21 @@
 #import <Foundation/Foundation.h>
 
 @interface SinglePlatform : AFHTTPClient
+{
+    NSString *clientID;
+    NSString *secret;
+}
+
+@property (nonatomic, retain)NSString *clientID;
+@property (nonatomic, retain)NSString *secret;
+@property (nonatomic, retain)NSString *apiKey;
 
 +(instancetype)client;
 
--(void)setAPIKey:(NSString *)apiKey;
+-(void)getLocations;
+-(NSString *)signURL:(NSMutableString *)url signingKey:(NSMutableString *)key;
+
+
+
 
 @end
