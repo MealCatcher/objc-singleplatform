@@ -12,6 +12,17 @@ NSString * const kSinglePlatformBaseURL = @"http://api.singleplatform.co";
 
 @implementation SinglePlatform
 
++(instancetype)client
+{
+    static dispatch_once_t onceToken;
+    static SinglePlatform *client;
+    dispatch_once(&onceToken, ^{
+        client = [[SinglePlatform alloc] initWithBaseURL:[NSURL URLWithString:kSinglePlatformBaseURL]];
+    });
+    return client;
+}
+
+
 -(void)setAPIKey:(NSString *)apiKey
 {
     NSParameterAssert(apiKey);
