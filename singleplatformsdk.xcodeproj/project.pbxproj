@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		37C1FD73B6C846F9B9F0CB1D /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A2972BC36241D6A68AEE1B /* libPods.a */; };
+		E703F210170140B400395B6F /* GTMStringEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = E703F20F170140B400395B6F /* GTMStringEncoding.m */; };
+		E703F213170140E400395B6F /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = E703F212170140E400395B6F /* NSData+Base64.m */; };
 		E723C40016FD0C9200F72A28 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E723C3FF16FD0C9200F72A28 /* UIKit.framework */; };
 		E723C40216FD0C9200F72A28 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E723C40116FD0C9200F72A28 /* Foundation.framework */; };
 		E723C40416FD0C9200F72A28 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E723C40316FD0C9200F72A28 /* CoreGraphics.framework */; };
@@ -25,6 +27,11 @@
 /* Begin PBXFileReference section */
 		83A2972BC36241D6A68AEE1B /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		971A19995D1F4C688A51825B /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		E703F20D170140B400395B6F /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		E703F20E170140B400395B6F /* GTMStringEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMStringEncoding.h; sourceTree = "<group>"; };
+		E703F20F170140B400395B6F /* GTMStringEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMStringEncoding.m; sourceTree = "<group>"; };
+		E703F211170140E400395B6F /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		E703F212170140E400395B6F /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		E723C3FC16FD0C9200F72A28 /* singleplatformsdk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = singleplatformsdk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E723C3FF16FD0C9200F72A28 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E723C40116FD0C9200F72A28 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -120,6 +127,11 @@
 		E78B807216FD0E7D00DB3A3B /* sdk */ = {
 			isa = PBXGroup;
 			children = (
+				E703F211170140E400395B6F /* NSData+Base64.h */,
+				E703F212170140E400395B6F /* NSData+Base64.m */,
+				E703F20D170140B400395B6F /* GTMDefines.h */,
+				E703F20E170140B400395B6F /* GTMStringEncoding.h */,
+				E703F20F170140B400395B6F /* GTMStringEncoding.m */,
 				E78B807316FD0E7D00DB3A3B /* SinglePlatform.h */,
 				E78B807416FD0E7D00DB3A3B /* SinglePlatform.m */,
 			);
@@ -215,6 +227,8 @@
 				E723C41016FD0C9200F72A28 /* AppDelegate.m in Sources */,
 				E723C41916FD0C9200F72A28 /* ViewController.m in Sources */,
 				E78B807516FD0E7D00DB3A3B /* SinglePlatform.m in Sources */,
+				E703F210170140B400395B6F /* GTMStringEncoding.m in Sources */,
+				E703F213170140E400395B6F /* NSData+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
