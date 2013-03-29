@@ -41,31 +41,6 @@ NSString * const kSinglePlatformBaseURL = @"http://api.singleplatform.co";
     return self;
 }
 
-/*-(void)setClientID:(NSString *)clientID
-{
-    NSParameterAssert(clientID);
-    [self clearAuthorizationHeader];
-    [self setAuthorizationHeaderWithUsername:@"api" password:clientID];
-}*/
-
--(NSString *)generateSignatureFromURL:(NSURL *) signingKey:(NSString *)signKey
-{
-    
-    NSMutableString *key = [[NSMutableString alloc] initWithString:signKey];
-    
-    [key replaceOccurrencesOfString:@"-" withString:@"+" options:NSLiteralSearch range:NSMakeRange(0, [key length])];
-    [key replaceOccurrencesOfString:@"_" withString:@"/" options:NSLiteralSearch range:NSMakeRange(0, [key length])];
-    
-    // Create instance of Google's URL-safe Base64 coder/decoder.
-    GTMStringEncoding *encoding = [GTMStringEncoding rfc4648Base64WebsafeStringEncoding];
-    
-    // Decodes the URL-safe Base64 key to binary.
-    NSData *binaryKey = [encoding decode:key];
-    
-    
-    
-}
-
 -(NSString*)generateSignature:(NSString *)url signingKey:(NSString *)signKey
 {
     NSMutableString *key = [[NSMutableString alloc] initWithString:signKey];
