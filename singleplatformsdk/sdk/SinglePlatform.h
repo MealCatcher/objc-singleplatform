@@ -29,6 +29,7 @@
 +(instancetype)client;
 
 -(void)searchLocations:(NSString *)searchInfo;
+-(void)getLocationDetails:(NSString *)locationID;
 -(NSString *)signURL:(NSMutableString *)url signingKey:(NSMutableString *)key;
 
 

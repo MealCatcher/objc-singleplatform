@@ -36,7 +36,6 @@ NSString * const kSinglePlatformBaseURL = @"http://api.singleplatform.co";
     {
         [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
         [self setDefaultHeader:@"Accept" value:@"application/json"];
-        self.parameterEncoding = AFFormURLParameterEncoding;
     }
     return self;
 }
@@ -136,13 +135,9 @@ NSString * const kSinglePlatformBaseURL = @"http://api.singleplatform.co";
 {
     NSParameterAssert(searchInfo);
     
-   // NSURL *searchRestaurants = [NSURL URLWithString:@"/restaurants/search" relativeToURL:[self baseURL]];
     NSURL *searchRestaurants = [NSURL URLWithString:@"/locations/search" relativeToURL:[self baseURL]];
     
-    // /locations/search
-    
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    //[parameters setValue:@"85390" forKey:@"q"];
     [parameters setValue:searchInfo forKey:@"q"];
     [parameters setValue:[self clientID] forKey:@"client"];    
     
@@ -162,7 +157,7 @@ NSString * const kSinglePlatformBaseURL = @"http://api.singleplatform.co";
                                          }
                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON)
                                          {
-                                             NSLog(@"Something happened");
+                                             NSLog(@"Response: %@", response);
                                              NSLog(@"Error: %@", [error localizedDescription]);
                                          }];
 #ifdef DEBUG
@@ -173,6 +168,37 @@ NSString * const kSinglePlatformBaseURL = @"http://api.singleplatform.co";
 }
 
 
+-(void)getLocationDetails:(NSString *)locationID
+{
+    NSParameterAssert(locationID);
+    
+    NSURL *specificLocationUrl = [NSURL URLWithString:[NSString stringWithFormat:@"/locations/%@", locationID] relativeToURL:[self baseURL]];
+    
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
+    [parameters setValue:[self clientID] forKey:@"client"];
+    
+    NSURLRequest *specificLocationRequest = [self requestWithMethod:@"GET" path:[specificLocationUrl absoluteString] parameters:parameters];
+    NSString *pathQueryStr = [[NSString alloc] initWithFormat:@"%@?%@", [[specificLocationRequest URL] path], [[specificLocationRequest URL] query]];
+    NSString *newSignature = [self generateSignature:pathQueryStr signingKey:[self secret]];
+    
+    specificLocationRequest = [self requestWithMethod:@"GET" path:[NSString stringWithFormat:@"%@?client=%@&sig=%@", [specificLocationUrl absoluteString], [self clientID], newSignature] parameters:nil];
+
+    AFJSONRequestOperation *opearation = [AFJSONRequestOperation JSONRequestOperationWithRequest:specificLocationRequest
+                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                                                                                             NSLog(@"Data: %@", JSON);
+                                                                                         }
+                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                                                                                             NSLog(@"Response: %@", response);
+                                                                                             NSLog(@"Error: %@", [error localizedDescription]);
+                     
+                                                                                        }];
+    
+#ifdef DEBUG
+    NSLog(@"URL: %@", [[specificLocationRequest URL] absoluteString]);
+#endif
+    
+    [self enqueueHTTPRequestOperation:opearation];
+}
 
 
 @end

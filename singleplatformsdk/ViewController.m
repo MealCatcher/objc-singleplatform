@@ -25,7 +25,10 @@
     [sp setApiKey:@"kcz006fl85dbvocyf7m8i8n6f"];
     
     //[sp searchLocations:@"85390"];
-    [sp searchLocations:nil];
+    //[sp searchLocations:nil];
+    [sp getLocationDetails:@"darlas-country-kitchen"];
+    
+    //[sp getLocationDetails:@"burger-king-282"];
     
 }
 
