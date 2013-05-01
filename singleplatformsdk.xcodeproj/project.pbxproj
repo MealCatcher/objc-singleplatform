@@ -19,6 +19,8 @@
 		E723C41616FD0C9200F72A28 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E723C41516FD0C9200F72A28 /* Default-568h@2x.png */; };
 		E723C41916FD0C9200F72A28 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E723C41816FD0C9200F72A28 /* ViewController.m */; };
 		E723C41C16FD0C9200F72A28 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E723C41A16FD0C9200F72A28 /* ViewController.xib */; };
+		E77D74A91730DE400052C61B /* GTMStringEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = E77D74A81730DE400052C61B /* GTMStringEncoding.m */; };
+		E77D74AC1730DE4C0052C61B /* NSData+Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = E77D74AB1730DE4C0052C61B /* NSData+Base64.m */; };
 		E78B807516FD0E7D00DB3A3B /* SinglePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = E78B807416FD0E7D00DB3A3B /* SinglePlatform.m */; };
 /* End PBXBuildFile section */
 
@@ -41,6 +43,11 @@
 		E723C41716FD0C9200F72A28 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		E723C41816FD0C9200F72A28 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		E723C41B16FD0C9200F72A28 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		E77D74A61730DE400052C61B /* GTMDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMDefines.h; sourceTree = "<group>"; };
+		E77D74A71730DE400052C61B /* GTMStringEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMStringEncoding.h; sourceTree = "<group>"; };
+		E77D74A81730DE400052C61B /* GTMStringEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GTMStringEncoding.m; sourceTree = "<group>"; };
+		E77D74AA1730DE4C0052C61B /* NSData+Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Base64.h"; sourceTree = "<group>"; };
+		E77D74AB1730DE4C0052C61B /* NSData+Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Base64.m"; sourceTree = "<group>"; };
 		E78B807316FD0E7D00DB3A3B /* SinglePlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SinglePlatform.h; sourceTree = "<group>"; };
 		E78B807416FD0E7D00DB3A3B /* SinglePlatform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SinglePlatform.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,6 +127,11 @@
 		E78B807216FD0E7D00DB3A3B /* sdk */ = {
 			isa = PBXGroup;
 			children = (
+				E77D74AA1730DE4C0052C61B /* NSData+Base64.h */,
+				E77D74AB1730DE4C0052C61B /* NSData+Base64.m */,
+				E77D74A61730DE400052C61B /* GTMDefines.h */,
+				E77D74A71730DE400052C61B /* GTMStringEncoding.h */,
+				E77D74A81730DE400052C61B /* GTMStringEncoding.m */,
 				E78B807316FD0E7D00DB3A3B /* SinglePlatform.h */,
 				E78B807416FD0E7D00DB3A3B /* SinglePlatform.m */,
 			);
@@ -215,6 +227,8 @@
 				E723C41016FD0C9200F72A28 /* AppDelegate.m in Sources */,
 				E723C41916FD0C9200F72A28 /* ViewController.m in Sources */,
 				E78B807516FD0E7D00DB3A3B /* SinglePlatform.m in Sources */,
+				E77D74A91730DE400052C61B /* GTMStringEncoding.m in Sources */,
+				E77D74AC1730DE4C0052C61B /* NSData+Base64.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
