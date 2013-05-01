@@ -18,20 +18,18 @@
 
 @interface SinglePlatform : AFHTTPClient
 {
-    NSString *clientID;
-    NSString *secret;
+    
 }
 
-@property (nonatomic, retain)NSString *clientID;
-@property (nonatomic, retain)NSString *secret;
-@property (nonatomic, retain)NSString *apiKey;
+@property (nonatomic, strong)NSString *apiKey;
+@property (nonatomic, strong)NSString *clientId;
+@property (nonatomic, strong)NSMutableString *signingKey;
 
-+(instancetype)client;
++(id)client;
++(id)clientWithApiKey:(NSString *)apiKey withClientId:(NSString *)clientId withSecret:(NSMutableString *)signingKey;
 
--(void)searchLocations:(NSString *)searchInfo;
--(void)getLocationDetails:(NSString *)locationID;
--(NSString *)signURL:(NSMutableString *)url signingKey:(NSMutableString *)key;
-
+//-(void)setAPIKey:(NSString *)apiKey;
+-(void)restaurantSearch:(NSString *)searchTerm;
 
 
 

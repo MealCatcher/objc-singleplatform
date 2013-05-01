@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "SinglePlatform.h"
 
 @interface ViewController ()
 
@@ -19,17 +20,12 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    SinglePlatform *sp = [SinglePlatform client];
-    [sp setClientID:@"coad3k62n95pi9sbybjydroxy"];
-    [sp setSecret:@"Sw3j7scIBviRMWBtLQ5jYsE1JnmgxA41hbrxQeQwfcw"];
-    [sp setApiKey:@"kcz006fl85dbvocyf7m8i8n6f"];
+       NSMutableString *api = [[NSMutableString alloc] initWithString:@"coad3k62n95pi9sbybjydroxy"];
+    NSMutableString *client = [[NSMutableString alloc] initWithString:@"coad3k62n95pi9sbybjydroxy"];
+    NSMutableString *sign = [[NSMutableString alloc] initWithString:@"Sw3j7scIBviRMWBtLQ5jYsE1JnmgxA41hbrxQeQwfcw"];
+    SinglePlatform *spClient = [SinglePlatform clientWithApiKey:api withClientId:client withSecret:sign];
     
-    //[sp searchLocations:@"85390"];
-    //[sp searchLocations:nil];
-    [sp getLocationDetails:@"darlas-country-kitchen"];
-    
-    //[sp getLocationDetails:@"burger-king-282"];
-    
+    [spClient restaurantSearch:@"boot"];
 }
 
 - (void)didReceiveMemoryWarning

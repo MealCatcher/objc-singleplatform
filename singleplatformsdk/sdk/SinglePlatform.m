@@ -11,83 +11,98 @@
 #import "NSData+Base64.h"
 #import "GTMStringEncoding.h"
 
+#import "AFJSONRequestOperation.h"
+
 NSString * const kSinglePlatformBaseURL = @"http://api.singleplatform.co";
 
 @implementation SinglePlatform
 
-@synthesize clientID;
-@synthesize secret;
 @synthesize apiKey;
+@synthesize signingKey;
+@synthesize clientId;
 
-+(instancetype)client
++(id)client
 {
+    static SinglePlatform *_sharedClient = nil;
     static dispatch_once_t onceToken;
-    static SinglePlatform *client;
     dispatch_once(&onceToken, ^{
-        client = [[SinglePlatform alloc] initWithBaseURL:[NSURL URLWithString:kSinglePlatformBaseURL]];
+        _sharedClient = [[SinglePlatform alloc] initWithBaseURL:[NSURL URLWithString:kSinglePlatformBaseURL]];
     });
+    
+    return _sharedClient;
+}
+
++(id)clientWithApiKey:(NSString *)apiKey withClientId:(NSString *)clientId withSecret:(NSMutableString *)signingKey
+{
+    NSParameterAssert(apiKey);
+    NSParameterAssert(clientId);
+    NSParameterAssert(signingKey);
+    
+    SinglePlatform *client = [SinglePlatform client];
+    client.apiKey = apiKey;
+    client.clientId = clientId;
+    client.signingKey = signingKey;
+    
     return client;
 }
 
 -(id)initWithBaseURL:(NSURL *)url
 {
     self = [super initWithBaseURL:url];
-    if(self)
+    if(!self)
     {
-        [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
-        [self setDefaultHeader:@"Accept" value:@"application/json"];
+        return nil;
     }
+    [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
+
+    //Accept HTTP Header;
+    [self setDefaultHeader:@"Accept" value:@"application/json"];
+
     return self;
 }
 
--(NSString*)generateSignature:(NSString *)url signingKey:(NSString *)signKey
+-(void)restaurantSearch:(NSString *)searchTerm
 {
-    NSMutableString *key = [[NSMutableString alloc] initWithString:signKey];
+    NSParameterAssert(searchTerm);
     
-    [key replaceOccurrencesOfString:@"-" withString:@"+" options:NSLiteralSearch range:NSMakeRange(0, [key length])];
-    [key replaceOccurrencesOfString:@"_" withString:@"/" options:NSLiteralSearch range:NSMakeRange(0, [key length])];
+    //Sign the URL with the zip code (search term) and clientId in the URL
+    //Append signature at the end
     
-    // Create instance of Google's URL-safe Base64 coder/decoder.
-    GTMStringEncoding *encoding = [GTMStringEncoding rfc4648Base64WebsafeStringEncoding];
-    
-    // Decodes the URL-safe Base64 key to binary.
-    NSData *binaryKey = [encoding decode:key];
+    NSMutableString *testURL = [[NSMutableString alloc]
+                                initWithFormat:@"/restaurants/search?q=%@&client=%@",
+                                searchTerm,
+                                self.clientId];
 
     
-    //Put the URL in an NSData object using ASCII String Encoding. Stores it in binary.
-    NSData *urlData = [url dataUsingEncoding: NSASCIIStringEncoding];
+    NSString *signature = [self signURL:testURL signingKey:self.signingKey];
     
-    // Sign the URL with Objective-C HMAC SHA1 algorithm and put it in character array
-    // the size of a SHA1 digest
-    unsigned char result[CC_SHA1_DIGEST_LENGTH];
-    CCHmac(kCCHmacAlgSHA1,
-           [binaryKey bytes],
-           [binaryKey length],
-           [urlData bytes],
-           [urlData length],
-           &result);
-    
-    NSData *binarySignature = [NSData dataWithBytes:&result length:CC_SHA1_DIGEST_LENGTH];
+    NSLog(@"Signature: %@", signature);
 
-    // Encodes the signature to URL-safe Base64 using Google's encoder/decoder (from binary to URL-safe)
-    NSMutableString *signature = [[NSMutableString alloc] initWithString:[encoding encode:binarySignature]];
-    
-    [signature replaceOccurrencesOfString:@"+" withString:@"-" options:NSLiteralSearch range:NSMakeRange(0, [signature length])];
-    
-    [signature replaceOccurrencesOfString:@"/" withString:@"_" options:NSLiteralSearch range:NSMakeRange(0, [signature length])];
+#warning This code still needs significant refactoring
+    [self getPath:[[NSString alloc] initWithFormat:@"restaurants/search?q=%@&client=%@&sig=%@", searchTerm, clientId, signature]
+                          parameters:nil
+                             success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                                 NSLog(@"Success");
+                                 NSLog(@"Response: %@", responseObject);
+                                 NSMutableArray *results = [NSMutableArray array];
+                                 for(id resultsDictionary in responseObject)
+                                 {
+                                     
+                                 }
+                                 
+                             }
+                             failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                                 NSLog(@"Did not work");
+                             }];
 
-    //Remove the equal sign at the end of the signature
-    [signature replaceOccurrencesOfString:@"=" withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [signature length])];
-    
-    return signature;
+
 }
 
-
-
-/* This method signs the URL using HMAC-SHA1 and returns the signature */
--(NSString *)signURL:(NSMutableString *)url signingKey:(NSMutableString *)key
+/* This method signs the a URL using HMAC-SHA1 and returns the signature */
+-(NSString *)signURL:(NSMutableString *)url signingKey:(NSMutableString*)key
 {
     [key replaceOccurrencesOfString:@"-" withString:@"+" options:NSLiteralSearch range:NSMakeRange(0, [key length])];
+    
     [key replaceOccurrencesOfString:@"_" withString:@"/" options:NSLiteralSearch range:NSMakeRange(0, [key length])];
     
     // Create instance of Google's URL-safe Base64 coder/decoder.
@@ -119,85 +134,12 @@ NSString * const kSinglePlatformBaseURL = @"http://api.singleplatform.co";
     NSMutableString *signature = [[NSMutableString alloc] initWithString:[encoding encode:binarySignature]];
     
     [signature replaceOccurrencesOfString:@"+" withString:@"-" options:NSLiteralSearch range:NSMakeRange(0, [signature length])];
-    
     [signature replaceOccurrencesOfString:@"/" withString:@"_" options:NSLiteralSearch range:NSMakeRange(0, [signature length])];
     
     //Remove the equal sign at the end of the signature
     [signature replaceOccurrencesOfString:@"=" withString:@"" options:NSLiteralSearch range:NSMakeRange(0, [signature length])];
     
     return signature;
-}
-
-/*
- *  Method used to search restaurants
- */
--(void)searchLocations:(NSString *)searchInfo
-{
-    NSParameterAssert(searchInfo);
-    
-    NSURL *searchRestaurants = [NSURL URLWithString:@"/locations/search" relativeToURL:[self baseURL]];
-    
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    [parameters setValue:searchInfo forKey:@"q"];
-    [parameters setValue:[self clientID] forKey:@"client"];    
-    
-    NSURLRequest *myRequest = [self requestWithMethod:@"GET" path:[searchRestaurants absoluteString] parameters:parameters];
-    
-    NSString *pathQueryStr = [[NSString alloc] initWithFormat:@"%@?%@", [[myRequest URL] path] ,[[myRequest URL] query]];
-    NSString *newSignature = [self generateSignature:pathQueryStr signingKey:[self secret]];
-    [parameters setValue:newSignature forKey:@"sig"];
-    
-    myRequest = [self requestWithMethod:@"GET" path:[searchRestaurants absoluteString] parameters:parameters];
-    
-    //Creating the actual AFJSONOperation
-    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:myRequest
-                                                                                        success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON)
-                                         {
-                                             NSLog(@"Test Stream: %@", JSON);
-                                         }
-                                                                                        failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON)
-                                         {
-                                             NSLog(@"Response: %@", response);
-                                             NSLog(@"Error: %@", [error localizedDescription]);
-                                         }];
-#ifdef DEBUG
-    NSLog(@"URL: %@", [[myRequest URL] absoluteString]);
-#endif
-    
-    [self enqueueHTTPRequestOperation:operation];
-}
-
-
--(void)getLocationDetails:(NSString *)locationID
-{
-    NSParameterAssert(locationID);
-    
-    NSURL *specificLocationUrl = [NSURL URLWithString:[NSString stringWithFormat:@"/locations/%@", locationID] relativeToURL:[self baseURL]];
-    
-    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] init];
-    [parameters setValue:[self clientID] forKey:@"client"];
-    
-    NSURLRequest *specificLocationRequest = [self requestWithMethod:@"GET" path:[specificLocationUrl absoluteString] parameters:parameters];
-    NSString *pathQueryStr = [[NSString alloc] initWithFormat:@"%@?%@", [[specificLocationRequest URL] path], [[specificLocationRequest URL] query]];
-    NSString *newSignature = [self generateSignature:pathQueryStr signingKey:[self secret]];
-    
-    specificLocationRequest = [self requestWithMethod:@"GET" path:[NSString stringWithFormat:@"%@?client=%@&sig=%@", [specificLocationUrl absoluteString], [self clientID], newSignature] parameters:nil];
-
-    AFJSONRequestOperation *opearation = [AFJSONRequestOperation JSONRequestOperationWithRequest:specificLocationRequest
-                                                                                         success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                                                                                             NSLog(@"Data: %@", JSON);
-                                                                                         }
-                                                                                         failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                                                                                             NSLog(@"Response: %@", response);
-                                                                                             NSLog(@"Error: %@", [error localizedDescription]);
-                     
-                                                                                        }];
-    
-#ifdef DEBUG
-    NSLog(@"URL: %@", [[specificLocationRequest URL] absoluteString]);
-#endif
-    
-    [self enqueueHTTPRequestOperation:opearation];
 }
 
 
